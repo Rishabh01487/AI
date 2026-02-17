@@ -1,0 +1,14 @@
+{
+  "name": "ai-video-editor",
+  "build": {
+    "dockerfilePath": "./backend/Dockerfile"
+  },
+  "start": "gunicorn app.main:app -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT",
+  "services": [
+    {
+      "name": "web",
+      "type": "docker",
+      "dockerfilePath": "./backend/Dockerfile"
+    }
+  ]
+}
