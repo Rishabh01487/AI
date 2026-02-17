@@ -1,0 +1,23 @@
+# Render service definitions (connect this repo in Render and Render will use this file)
+
+services:
+  - type: web
+    name: ai-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    branch: main
+    plan: starter
+
+  - type: worker
+    name: ai-worker
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    startCommand: celery -A workers.celery_app worker --loglevel=info
+    branch: main
+    plan: starter
+
+staticSites:
+  - name: ai-frontend
+    branch: main
+    buildCommand: cd frontend && npm ci --legacy-peer-deps && npm run build
+    publishPath: frontend/build
